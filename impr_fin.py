@@ -108,7 +108,7 @@ def get_market_data(ticker, start_date, end_date):
     # 确保日期范围和新闻匹配
     dates = pd.date_range(start=start_date, end=end_date, freq='B') 
     
-    # 设定初始价格
+    # 设定初始价
     price = 100 
     prices = []
     
@@ -276,4 +276,4 @@ if run_btn:
                     k2.metric("最大回撤 (Max Drawdown)", f"{max_drawdown:.2f}%")
 
 else:
-    st.info("👈 请在左侧上传 CSV 文件，确认股票代码为 'A'，然后点击开始分析。")
+    st.info("👈 请在左侧上传 CSV或Excel文件，确认股票代码为 'A'，然后点击开始分析。")

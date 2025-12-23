@@ -2,12 +2,11 @@
 
 
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 
-![Streamlit](https://img.shields.io/badge/Streamlit-App-ff4b4b)](https://streamlit.io/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-ff4b4b)](https://streamlit.io/)
 
-![Model](https://img.shields.io/badge/Model-FinBERT-yellow)](https://huggingface.co/ProsusAI/finbert)
-
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
 
 \## Project Overview

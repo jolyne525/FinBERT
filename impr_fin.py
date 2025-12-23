@@ -18,7 +18,7 @@ from datetime import datetime, timedelta
 # 1. 页面配置
 st.set_page_config(page_title="Sentiment Alpha", page_icon="📈", layout="wide")
 
-st.title("🤖 基于 FinBERT 的情绪与股价因果推断系统")
+st.title("😊 基于 FinBERT 的情绪与股价因果推断系统")
 st.markdown("""
 * **数据源:** 真实财经新闻 + Yahoo Finance
 * **核心技术:** NLP + Granger Causality Test

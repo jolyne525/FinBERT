@@ -1,8 +1,7 @@
 import streamlit as st
 import os
 
-# --- 0. 关键修复：设置国内镜像加速 (解决 HuggingFace 下载失败问题) ---
-# 必须在 import transformers 之前设置
+# 0. 修复：设置国内镜像加速 (解决 HuggingFace 下载失败问题) 
 os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
 
 import pandas as pd
@@ -16,18 +15,17 @@ import torch.nn.functional as F
 from statsmodels.tsa.stattools import grangercausalitytests
 from datetime import datetime, timedelta
 
-# --- 1. 页面配置 ---
-st.set_page_config(page_title="DS Master Project: Sentiment Alpha", page_icon="📈", layout="wide")
+# 1. 页面配置
+st.set_page_config(page_title="Sentiment Alpha", page_icon="📈", layout="wide")
 
 st.title("🤖 基于 FinBERT 的情绪与股价因果推断系统")
 st.markdown("""
-**香港 DS/FinTech 硕士申请项目演示**
-* **数据源:** 真实财经新闻 (Agilent Technologies) + Yahoo Finance
-* **核心技术:** NLP (Transformer) + Granger Causality Test
+* **数据源:** 真实财经新闻 + Yahoo Finance
+* **核心技术:** NLP + Granger Causality Test
 """)
 st.divider()
 
-# --- 2. 模型加载 (缓存加速) ---
+#  2. 模型加载 (缓存加速) 
 @st.cache_resource
 def load_finbert():
     """加载 FinBERT 模型 (已配置国内镜像)"""
@@ -55,7 +53,7 @@ def get_sentiment_score(text):
     score = probs[0][0].item() - probs[0][1].item()
     return score
 
-# --- 3. 数据处理 ---
+# 3. 数据处理 
 
 def load_news_from_csv(uploaded_file, ticker_filter):
     """读取并清洗数据"""
@@ -104,7 +102,7 @@ def get_market_data(ticker, start_date, end_date):
     except:
         pass
 
-    # --- 兜底逻辑：生成【强牛市】仿真数据 (让回测曲线好看) ---
+    # 生成【强牛市】仿真数据 (让回测曲线好看一点) 
     st.warning("⚠️ 无法连接 Yahoo Finance，已切换至【强趋势模拟数据】以展示策略效果。")
     
     # 确保日期范围和新闻匹配
@@ -114,8 +112,8 @@ def get_market_data(ticker, start_date, end_date):
     price = 100 
     prices = []
     
-    # --- 魔法参数：调高收益率期望 (mu)，调低波动率 (sigma) ---
-    # mu = 0.002 (每天涨 0.2%，这是非常猛的牛市)
+    # 设置参数：调高收益率期望 (mu)，调低波动率 (sigma)
+    # mu = 0.002 (每天涨 0.2%，非常猛的牛市)
     np.random.seed(42) # 固定种子
     
     for _ in range(len(dates)):
@@ -128,15 +126,15 @@ def get_market_data(ticker, start_date, end_date):
     df['Log_Return'] = np.log(df['Close'] / df['Close'].shift(1))
     
     return df.dropna()
-# --- 4. 侧边栏与主逻辑 ---
+# 4. 侧边栏与主逻辑 
 st.sidebar.header("🛠️ 实验控制台")
 
 uploaded_file = st.sidebar.file_uploader("1. 上传新闻数据 (CSV 或 Excel)", type=["csv", "xlsx"])
-ticker = st.sidebar.text_input("2. 股票代码 (Ticker)", "A") 
-analysis_days = st.sidebar.slider("3. 回测天数 (Days)", 100, 3000, 1000)
-lag_order = st.sidebar.slider("4. 因果滞后 (Lags)", 1, 5, 1)
+ticker = st.sidebar.text_input("2. 股票代码", "A") 
+analysis_days = st.sidebar.slider("3. 回测天数", 100, 3000, 1000)
+lag_order = st.sidebar.slider("4. 因果滞后", 1, 5, 1)
 
-run_btn = st.sidebar.button("开始全流程分析", type="primary")
+run_btn = st.sidebar.button("开始流程分析", type="primary")
 
 if run_btn:
     if model is None:
@@ -174,7 +172,7 @@ if run_btn:
                     st.dataframe(news_df[['Date', 'Headline']].head(3), height=150)
 
                 # D. NLP 分析
-                st.subheader("2. FinBERT 情绪计算 (Sentiment Scoring)")
+                st.subheader("2. FinBERT 情绪计算")
                 
                 # 采样以加快演示
                 if len(news_df) > 200:
@@ -222,7 +220,7 @@ if run_btn:
                     st.plotly_chart(fig, use_container_width=True)
                     
                     # F. 因果推断
-                    st.subheader("4. 格兰杰因果检验 (Granger Causality Test)")
+                    st.subheader("4. 格兰杰因果检验 ")
                     
                     ts_data_gc = merged_df[['Log_Return', 'Sentiment_Score']].dropna()
                     
@@ -232,21 +230,21 @@ if run_btn:
                         p_value = params[1]
                         
                         c1, c2, c3 = st.columns(3)
-                        c1.metric("滞后阶数 (Lag)", lag_order)
+                        c1.metric("滞后阶数", lag_order)
                         c2.metric("P-Value", f"{p_value:.4f}")
                         
                         if p_value < 0.05:
-                            c3.success("🚀 显著 (Significant)")
+                            c3.success("🚀 显著)")
                             st.success("验证成功！新闻情绪显著领先于股价波动。")
                         else:
-                            c3.info("不显著 (Not Significant)")
+                            c3.info("不显著 ")
                             st.info("当前窗口未发现显著因果性，但不影响策略回测演示。")
                             
                     except Exception as e:
                         st.warning(f"无法进行统计检验: {e}")
 
-                    # --- G. 策略回测 (之前报错的地方，现在修复了缩进) ---
-                    st.subheader("5. 策略回测 (Strategy Backtest)")
+                    # G. 策略回测
+                    st.subheader("5. 策略回测")
                     st.markdown("构建一个简单的择时策略：**当昨日情绪为正时持有，否则空仓**。")
 
                     # 1. 构造信号

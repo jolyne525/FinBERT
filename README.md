@@ -1,16 +1,16 @@
-\# 📈 FinBERT-Alpha: Sentiment-Driven Causal Inference System
+\# FinBERT-Alpha: Sentiment-Driven Causal Inference System
 
 
 
-\[!\[Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)](https://www.python.org/)
 
-\[!\[Streamlit](https://img.shields.io/badge/Streamlit-App-ff4b4b)](https://streamlit.io/)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-ff4b4b)](https://streamlit.io/)
 
-\[!\[Model](https://img.shields.io/badge/Model-FinBERT-yellow)](https://huggingface.co/ProsusAI/finbert)
+![Model](https://img.shields.io/badge/Model-FinBERT-yellow)](https://huggingface.co/ProsusAI/finbert)
 
 
 
-\## 📖 Project Overview
+\## Project Overview
 
 
 
@@ -22,11 +22,7 @@ Using \*\*FinBERT\*\* (a BERT model pre-trained on financial texts), the system 
 
 
 
-> \*\*Use Case\*\*: Master's application demo for Data Science / FinTech (HKU/HKUST/CUHK).
-
-
-
-\## 🚀 Key Features
+\##  Key Features
 
 
 
@@ -42,7 +38,7 @@ Using \*\*FinBERT\*\* (a BERT model pre-trained on financial texts), the system 
 
 
 
-\## 🛠️ Tech Stack
+\##  Tech Stack
 
 
 
@@ -58,7 +54,7 @@ Using \*\*FinBERT\*\* (a BERT model pre-trained on financial texts), the system 
 
 
 
-\## 📂 Data Requirements
+\##  Data Requirements
 
 
 
@@ -80,7 +76,7 @@ To run the analysis, upload a CSV or Excel file containing historical news. The 
 
 
 
-\## 💻 Quick Start
+\##  Quick Start
 
 
 
@@ -88,7 +84,5 @@ To run the analysis, upload a CSV or Excel file containing historical news. The 
 
 ```bash
 
-git clone \[https://github.com/YourUsername/FinBERT-Sentiment-Alpha.git](https://github.com/YourUsername/FinBERT-Sentiment-Alpha.git)
-
-cd FinBERT-Sentiment-Alpha
-
+git clone https://github.com/jolyne525/FinBERT.git
+cd FinBERT

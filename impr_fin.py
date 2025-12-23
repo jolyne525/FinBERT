@@ -234,10 +234,10 @@ if run_btn:
                         c2.metric("P-Value", f"{p_value:.4f}")
                         
                         if p_value < 0.05:
-                            c3.success("🚀 显著)")
+                            c3.success("🚀 显著 SIGNIFICANCE)")
                             st.success("验证成功！新闻情绪显著领先于股价波动。")
                         else:
-                            c3.info("不显著 ")
+                            c3.info("不显著 INSIGNIFICANCE")
                             st.info("当前窗口未发现显著因果性，但不影响策略回测演示。")
                             
                     except Exception as e:
@@ -273,7 +273,7 @@ if run_btn:
 
                     k1, k2 = st.columns(2)
                     k1.metric("策略累计回报", f"{total_ret_algo:.2f}%")
-                    k2.metric("最大回撤 (Max Drawdown)", f"{max_drawdown:.2f}%")
+                    k2.metric("最大回撤", f"{max_drawdown:.2f}%")
 
 else:
     st.info("👈 请在左侧上传 CSV或Excel文件，确认股票代码为 'A'，然后点击开始分析。")

@@ -162,7 +162,7 @@ if run_btn:
                 st.error("股价数据获取失败。")
             else:
                 # C. 数据概览
-                st.subheader("1. 数据对齐概览 (Data Alignment)")
+                st.subheader("1. 数据对齐概览")
                 col1, col2 = st.columns(2)
                 with col1:
                     st.caption(f"股价数据: {len(market_df)} 行")
@@ -204,7 +204,7 @@ if run_btn:
                 if len(merged_df) < 5:
                     st.error("合并后的有效数据太少 (日期未重叠)，无法进行分析。")
                 else:
-                    st.subheader("3. 策略可视化 (Sentiment vs Price)")
+                    st.subheader("3. 策略可视化 (Sentiment  vs  Price)")
                     
                     fig = make_subplots(specs=[[{"secondary_y": True}]])
                     fig.add_trace(go.Scatter(
@@ -264,7 +264,7 @@ if run_btn:
                                                 name='基准 (Benchmark)', line=dict(color='gray', dash='dash')))
                     fig_bt.add_trace(go.Scatter(x=ts_data['Date'], y=ts_data['Cumulative_Strategy'], 
                                                 name='FinBERT 策略 (AI)', line=dict(color='red', width=2)))
-                    fig_bt.update_layout(title="资金曲线对比 (Equity Curve)", yaxis_title="净值 (Net Worth)")
+                    fig_bt.update_layout(title="资金曲线对比 ", yaxis_title="净值")
                     st.plotly_chart(fig_bt, use_container_width=True)
 
                     # 5. 关键指标

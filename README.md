@@ -10,7 +10,7 @@ An end-to-end pipeline that converts financial headlines into a **continuous sen
 
 ---
 
-## ✨ What This Project Demonstrates (Resume-Aligned)
+## ✨ What This Project Demonstrates
 
 - **Coupled time-series modeling (sentiment + market):**  
   Converts headlines → continuous sentiment factor (FinBERT) and prices → return signals, enabling lead–lag analysis and signal construction.
@@ -29,7 +29,7 @@ An end-to-end pipeline that converts financial headlines into a **continuous sen
 ## 🖼️ Dashboard Preview
 
 <p align="center">
-  <img src="assets/dashboard.png" alt="FinBERT Sentiment Alpha Dashboard" width="900"/>
+  <img width="1536" height="1024" alt="Image" src="https://github.com/user-attachments/assets/74111373-c644-4181-8e40-67aee9b9122d" />
 </p>
 
 ---

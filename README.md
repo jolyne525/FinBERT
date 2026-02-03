@@ -1,48 +1,70 @@
-# FinBERT-Alpha: Sentiment-Driven Causal Inference System
+# 📈 FinBERT-Based Sentiment and Stock Lead–Lag Analysis
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+An end-to-end pipeline that converts financial headlines into a **continuous sentiment factor** using **FinBERT**, aligns it with daily stock returns, tests **lead–lag predictive structure** via **Granger causality** across multiple lag orders, and validates a **sentiment timing policy** through backtesting with risk-adjusted metrics.
 
-[![Streamlit](https://img.shields.io/badge/Streamlit-App-ff4b4b)](https://streamlit.io/)
+**Tech Stack:** Python (PyTorch, Transformers, Statsmodels), Streamlit, Plotly, yfinance
 
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+**Live Demo:** https://finbert-7zfu3euxvd5ogfgq69fsjm.streamlit.app/ 
 
-## Project Overview
+**Repo:** https://github.com/jolyne525/FinBERT.git
 
-This project implements a **Natural Language Processing (NLP)** pipeline to analyze the causal relationship between financial news sentiment and stock price movements.
+---
 
-Using **FinBERT** (a BERT model pre-trained on financial texts), the system extracts sentiment signals from unstructured news headlines and performs **Granger Causality Tests** to validate whether sentiment creates a statistically significant lead on stock returns. Finally, it executes a backtest to evaluate the "Sentiment Alpha."
+## ✨ What This Project Demonstrates (Resume-Aligned)
 
-## Key Features
+- **Coupled time-series modeling (sentiment + market):**  
+  Converts headlines → continuous sentiment factor (FinBERT) and prices → return signals, enabling lead–lag analysis and signal construction.
 
-- **Transformer-based NLP**: Utilizes `ProsusAI/finbert` for state-of-the-art financial sentiment classification.
-- **Causal Inference**: Implements **Granger Causality Tests** (via `statsmodels`) to statistically prove the predictive power of news.
-- **Automated Backtesting**: Simulates a long-short strategy based on sentiment signals vs. Buy & Hold benchmark.
-- **Region Optimized**: Configured with HF-Mirror to ensure stable model downloading in restricted network environments.
-- **Interactive Visualization**: Dynamic plotting of Equity Curves and Sentiment Distributions using Plotly.
+- **Reproducible NLP-to-factor-to-analysis pipeline:**  
+  Tokenization → FinBERT inference (batched) → daily aggregation → time alignment to trading days.
 
-## Tech Stack
+- **Lead–lag testing with Granger causality:**  
+  Runs Granger causality across **lag = 1..N**, reporting **p-values** (and directionality: Sentiment→Return and Return→Sentiment).
 
-- **Core Logic**: Python, Pandas, NumPy
-- **Deep Learning**: PyTorch, HuggingFace Transformers
-- **Statistics**: Statsmodels (Granger Causality)
-- **Data Source**: Yahoo Finance API (`yfinance`)
-- **UI/UX**: Streamlit
+- **Sentiment timing policy + backtest validation:**  
+  Strategy: **hold when prior-day sentiment > threshold, otherwise stay out**, validated with **cumulative return, Sharpe ratio, max drawdown, volatility, turnover/exposure** vs Buy & Hold.
 
-## Data Requirements
+---
 
-To run the analysis, upload a CSV or Excel file containing historical news. The system expects the following columns (headers are auto-renamed in the app, but ensure roughly these contents):
+## 🖼️ Dashboard Preview
 
-| title (Headline)               | date       | stock (Ticker) |
-| ------------------------------ | ---------- | -------------- |
-| Agilent announces new Q3 results... | 2023-01-15 | A              |
-| Market hits record high...       | 2023-01-16 | A              |
+<p align="center">
+  <img src="assets/dashboard.png" alt="FinBERT Sentiment Alpha Dashboard" width="900"/>
+</p>
 
-*(Note: The system includes a robust fallback mechanism to generate simulated bullish market data if Yahoo Finance connectivity fails.)*
+---
 
-## Quick Start
+## 🔧 How It Works (Pipeline)
 
-### 1. Clone Repository
+1. **Input News (CSV/Excel)**  
+2. **FinBERT Sentiment Inference**  
+   - Score = P(positive) − P(negative)  
+3. **Daily Aggregation** (mean/median)  
+4. **Time Alignment**  
+   - Option A: map non-trading days → **next trading day**  
+   - Option B: use **same-day inner join**  
+5. **Lead–Lag Test (Granger)**  
+   - Multi-lag (1..N) p-value table and p-value curve  
+6. **Backtest Timing Policy**  
+   - Position[t] = 1 if sentiment[t−1] > threshold else 0  
+   - Optional transaction cost (bps)  
+7. **Export** aligned dataset + Granger results + backtest details (CSV)
 
-```bash
-git clone https://github.com/jolyne525/FinBERT.git
-cd FinBERT
+---
+
+## 📁 Expected News Data Format
+
+Your CSV/Excel should include at least:
+
+- `date` (or `Date`, `datetime`, `published`, etc.)
+- `headline` (or `title`)
+
+Optional:
+- `ticker` / `stock` / `symbol` (if provided, the app can filter by ticker)
+
+Example CSV:
+
+```csv
+date,headline,ticker
+2024-01-03,"Company beats earnings expectations",AAPL
+2024-01-04,"Guidance revised downward amid macro uncertainty",AAPL

@@ -126,7 +126,7 @@ date,headline,ticker
 
 1. Push these files to GitHub:
 
-   * `app.py`
+   * `impr_fin.py`
    * `requirements.txt`
    * `README.md`
    * (optional) `assets/` screenshots
@@ -135,7 +135,7 @@ date,headline,ticker
 
 3. Select your repo + branch
 
-4. Set **Main file path** to: `app.py`
+4. Set **Main file path** to: `impr_fin.py`
 
 5. Click **Deploy**
 
